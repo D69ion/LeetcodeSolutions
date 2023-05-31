@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Algorithms\Medium\" />
     <Folder Include="Algorithms\Hard\" />
     <Folder Include="Database\Easy\" />
     <Folder Include="Database\Hard\" />
