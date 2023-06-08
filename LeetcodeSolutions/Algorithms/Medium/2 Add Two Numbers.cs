@@ -12,14 +12,13 @@ namespace LeetcodeSolutions.Algorithms.Medium
     {
         public int val;
         public ListNode? next;
-        public ListNode(int val = 0, ListNode next = null)
+        public ListNode(int val = 0, ListNode? next = null)
         {
             this.val = val;
             this.next = next;
         }
     }
     public class Solution
-    //https://leetcode.com/problems/add-two-numbers/description/
     {
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
@@ -32,15 +31,15 @@ namespace LeetcodeSolutions.Algorithms.Medium
 
         private BigInteger ListToNumber(ListNode l1)
         {
-            BigInteger result = l1.val;
+            BigInteger result = 0;
             BigInteger multiplier = 1;
-            ListNode temp = l1.next;
+            ListNode? temp = l1;
             while (true)
             {
                 if (temp != null)
                 {
-                    multiplier = multiplier * 10;
                     result += multiplier * temp.val;
+                    multiplier = multiplier * 10;
                     temp = temp.next;
                 }
                 else break;
@@ -50,33 +49,22 @@ namespace LeetcodeSolutions.Algorithms.Medium
 
         private ListNode NumberToList(BigInteger result)
         {
-            /*
-            string stringNumber = result.ToString().Reverse().ToString()!;
-            ListNode resultList = new ListNode(stringNumber[0]);
-            ListNode node = new ListNode();
-            foreach (var number in stringNumber)
-            {
-                
-            }
-            return resultList;*/
-
-
-            string stringNumber = result.ToString().Reverse().ToString()!;
+            string stringNumber = result.ToString();
+            char[] chars = stringNumber.ToCharArray();
+            Array.Reverse(chars);
             ListNode resultList = new ListNode();
-            int index = 0;
-            IntToNode(resultList, stringNumber, index);
-            return resultList;
-        }
-
-        private void IntToNode(ListNode resultList, string data, int index)
-        {
-            resultList.val = Convert.ToInt32(data[index++]);
-            if (index < data.Length)
+            ListNode temp = resultList;
+            for (int i = 0; i < chars.Length; i++)
             {
-                ListNode listNode = new ListNode();
-                resultList.next = listNode;
-                IntToNode(resultList.next, data, index);
+                temp.val = (int)Char.GetNumericValue(chars[i]);
+                if (i != chars.Length - 1)
+                {
+                    temp.next = new ListNode();
+                    temp = temp.next;
+                }
+                else temp.next = null;
             }
+            return resultList;
         }
     }
 }
